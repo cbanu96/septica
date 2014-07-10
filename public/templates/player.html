@@ -1,0 +1,23 @@
+<div class="btn-block player player-default" ng-class="{'player-highlight-turn': playerTurn == 'yes' && type == 'zone' && settingsObject.highlightTurn, 'player-highlight-self': ngModel.name == userName && settingsObject.highlightPlayer, 'player-red': teams == 'yes' && index == '0', 'player-blue': teams == 'yes' && index == '1'}">
+	<span>
+		&nbsp;
+		{{ ngModel.name }}
+		&nbsp;
+		<span class="badge" ng-show="hostNick == ngModel.name && type == 'room'">&nbsp;Host&nbsp;</span>
+		<span class="badge" ng-show="type == 'zone'">&nbsp;{{ ngModel.points }}&nbsp;</span>
+	</span>
+	<span class="pull-right">
+		<!-- Room -->
+		<!-- MOVEUP -->
+		<a href="#" class="player-btn" ng-show="hostNick == userName && type == 'room'" ng-click="moveUp()" title="Move this player" data-placement="left" data-toggle="tooltip" rel="tooltip"><span class="glyphicon glyphicon-chevron-up"></span></a>
+		<!-- MOVEDOWN -->
+		<a href="#" class="player-btn" ng-show="hostNick == userName && type == 'room'" ng-click="moveDown()" title="Move this player" data-placement="left" data-toggle="tooltip" rel="tooltip"><span class="glyphicon glyphicon-chevron-down"></span></a>
+		<!-- KICK -->
+		<a href="#" class="player-btn" ng-show="hostNick == userName && type == 'room'" ng-click="kick()" title="Kick this player" data-placement="left" data-toggle="tooltip" rel="tooltip"><span class="glyphicon glyphicon-ban-circle kick"></span></a>
+		<!-- Zone -->
+		<!-- TURNSTARTER -->
+		<span class="glyphicon glyphicon-tower" ng-show="settingsObject.showTurnStarter && type == 'zone' && playerStarter == 'yes'"></span>
+		<!-- LASTCUTTER -->
+		<span class="glyphicon glyphicon-flash" ng-show="settingsObject.showLastCutter && type == 'zone' && playerCutter == 'yes'"></span>
+	</span>
+</div>

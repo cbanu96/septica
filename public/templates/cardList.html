@@ -1,0 +1,7 @@
+<div class="center-block text-center">
+	<ul class="list-inline list-unstyled card-list" ng-class="{'card-list-random': random == 'yes', 'card-list-norandom': random == 'no'}">
+		<li ng-repeat="card in ngModel">
+			<card ng-model="card" action="action()" index="{{ $index }}" hover="{{ hover }}" random="{{ random }}" clickable="{{ clickable }}">
+		</li>
+	</ul>
+</div>

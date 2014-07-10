@@ -1,0 +1,95 @@
+
+/* Room styles */
+
+@player-default-color:          rgb(100, 150, 100);
+@player-default-bg:             darken(@player-default-color, 25%);
+@player-default-border:         lighten(@player-default-bg, 7.5%);
+
+@player-red-color:              rgb(175, 125, 100);
+@player-red-bg:                 darken(@player-red-color, 25%);
+@player-red-border:             lighten(@player-red-color, 7.5%);
+
+@player-blue-color:             rgb(100, 125, 175);
+@player-blue-bg:                darken(@player-blue-color, 25%);
+@player-blue-border:            lighten(@player-blue-bg, 7.5%);
+
+@player-turn-color:             rgb(150, 150, 100);
+@player-turn-bg:                darken(@player-turn-color, 20%);
+@player-turn-border:            lighten(@player-turn-bg, 7.5%);
+
+@player-self-color:             lighten(@player-default-color, 15%);
+@player-self-bg:                darken(@player-self-color, 25%);
+@player-self-border:            lighten(@player-self-bg, 7.5%);
+
+@kick-color: rgb(225, 75, 75);
+
+.kick {
+	color: @kick-color;
+	&:hover {
+		color: lighten(@kick-color, 10%);
+	}
+}
+
+.player {
+	display: inline-block;
+	font-weight: @btn-font-weight;
+	text-align: center;
+	vertical-align: middle;
+	background-image: none;
+	border: 1px solid transparent;
+	white-space: nowrap;
+	.button-size(@padding-base-vertical; @padding-base-horizontal; @font-size-base; @line-height-base; @border-radius-base);
+	.user-select(none);
+
+	.player-btn {
+		margin-right: 0.3em;
+	}
+
+	// hide points on smaller screens ( 320 - 340 px )
+	@media screen and (min-width: 320px) and (max-width: 340px) {
+		.badge {
+			display: none;
+		}
+	}
+
+	// align text to left on smaller screens ( 320 - 480 px )
+	@media screen and (min-width: 320px) and (max-width: 480px) {
+		text-align: left;
+		padding-left: 1px;
+		padding-right: 1px;
+
+		font-size: @font-size-small;
+	}
+}
+
+.player-default {
+	.button-variant(@player-default-color; @player-default-bg; @player-default-border);
+}
+
+.player-highlight-turn {
+	.button-variant(@player-turn-color; @player-turn-bg; @player-turn-border);
+}
+
+.player-highlight-self {
+	.button-variant(@player-self-color; @player-self-bg; @player-self-border);
+}
+
+.player-red {
+	.button-variant(@player-red-color; @player-red-bg; @player-red-border);
+
+	&.player-highlight-turn {
+		.button-variant(mix(@player-red-color, @player-turn-color, 50%);
+						mix(@player-red-bg, @player-turn-bg, 50%);
+						mix(@player-red-border, @player-turn-border, 50%));
+	}
+}
+
+.player-blue {
+	.button-variant(@player-blue-color; @player-blue-bg; @player-blue-border);
+
+	&.player-highlight-turn {
+		.button-variant(mix(@player-blue-color, @player-turn-color, 50%);
+						mix(@player-blue-bg, @player-turn-bg, 50%);
+						mix(@player-blue-border, @player-turn-border, 50%));
+	}
+}

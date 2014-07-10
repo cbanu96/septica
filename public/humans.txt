@@ -1,0 +1,15 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+	Developer: Cristian Banu
+	Email: cristb@gmail.com
+	Location: Targoviste, Romania
+
+# TECHNOLOGY COLOPHON
+
+	Last update: 2014/01/05
+	Standards: HTML5, CSS3
+	Components: Modernizr, jQuery, Bootstrap, Node.js, Socket.IO
+	Software: Sublime Text 2, GIMP, Git

@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" ng-app="septicaApp"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" ng-app="septicaApp"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" ng-app="septicaApp"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" ng-app="septicaApp"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Septica | Multiplayer Game</title>
+
+    <meta name="description" content="Play online in real-time with your friends!">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="google" content="notranslate">
+
+    <!-- Open Graph metas -->
+
+    <meta property="og:title" content="Septica | Multiplayer Game">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="http://septica-cbanu96.rhcloud.com/og_icon.png">
+    <meta property="og:url" content="http://septica-cbanu96.rhcloud.com/">
+
+    <link rel="author" type="text/plain" href="http://septica-cbanu96.rhcloud.com/humans.txt">
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+
+    <link rel="stylesheet" href="css/scrollbar.css">
+    <link rel="stylesheet" href="css/stylesheet.css">
+
+    <!-- IE Mobile fix -->
+    <script>
+      (function() {
+        if ("-ms-user-select" in document.documentElement.style && navigator.userAgent.match(/IEMobile\/10\.0/)) {
+          var msViewportStyle = document.createElement("style");
+          msViewportStyle.appendChild(
+              document.createTextNode("@-ms-viewport{width:auto!important}")
+          );
+          document.getElementsByTagName("head")[0].appendChild(msViewportStyle);
+        }
+      })();
+    </script>
+
+    <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+  </head>
+  <body style="display: none;" ng-controller="MainCtrl">
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Navigation -->
+    <div class="navbar navbar-default navbar-static-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Septica <small ng-show="main.data.username"> <span class="glyphicon glyphicon-chevron-right"> </span> {{ main.data.username }} </small> </a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#game" data-toggle="tab"><span class="glyphicon glyphicon-home"></span> Game</a></li>
+            <li><a href="#rules" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Rules</a></li>
+            <li><a href="#faq" data-toggle="tab"><span class="glyphicon glyphicon-question-sign"></span> FAQ</a></li>
+            <li><a href="#settings" data-toggle="tab"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+            <li><a href="#about" data-toggle="tab"><span class="glyphicon glyphicon-info-sign"></span> About</a></li>
+          </ul>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="tab-content">
+        <!-- + App tabs -->
+        <div class="tab-pane fade in active" id="game">
+          <!-- + Game tabs -->
+          <ul class="nav nav-tabs" style="display: none;"> <!-- Hidden tabs -->
+            <li class="active"><a data-toggle="tab" id="game-login-href" href="#game-login">Login</a></li>
+            <li><a data-toggle="tab" id="game-create-href" href="#game-create">Create</a></li>
+            <li><a data-toggle="tab" id="game-list-href" href="#game-list">List</a></li>
+            <li><a data-toggle="tab" id="game-zone-href" href="#game-zone">Zone</a></li>
+            <li><a data-toggle="tab" id="game-room-href" href="#game-room">Room</a></li>
+          </ul>
+          <div class="tab-content">
+            <!-- Game Login -->
+            <div class="tab-pane fade in active" id="game-login" ng-controller="GameLoginCtrl">
+              <div class="row">&nbsp;</div>
+              <div class="row">
+                <div class="col-md-offset-3 col-md-6">
+                  <div class="alert alert-warning">
+                    <strong>Multiple connections aren't permitted.</strong>
+                    You will be disconnected on all other connections except this one!
+                  </div>
+                  <div class="row">
+                    <form name="gameLoginForm" role="form" class="form-horizontal" id="game-login-form" ng-submit="login(gameLoginForm)">
+                      <div class="col-xs-7 col-sm-8 col-md-8">
+                        <div class="form-group">
+                          <label class="sr-only" for="nicknameInput">Nickname: </label>
+                          <input type="text" class="form-control" id="nicknameInput" name="nicknameInput" placeholder="Your nickname" pattern="[a-zA-Z0-9]{4,16}" title="4 to 16 alphanumeric characters" ng-model="nickname">
+                        </div>
+                      </div>
+                      <div class="col-xs-5 col-sm-4 col-md-4">
+                        <button type="submit" name="gameLoginSubmit" id="gameLoginSubmit" data-loading-text="Entering..." class="btn btn-block btn-primary">Enter!</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Game Create -->
+            <div class="tab-pane fade" id="game-create" ng-controller="GameCreateCtrl">
+              <div class="row">&nbsp;</div>
+              <div class="row">
+                <div class="col-md-offset-3 col-md-6">
+                  <div class="row">
+                    <div class="col-md-offset-2 col-md-8">
+                      <form role="form" class="form-horizontal" id="game-create-form" name="gameCreateForm">
+                        <div class="form-group no-padding">
+                          <div class="col-sm-8">
+                            <label class="sr-only" for="roomNameInput"> Room Name: </label>
+                            <input type="text" class="form-control" placeholder="Name your game" name="roomNameInput" id="roomNameInput" pattern="[a-zA-Z0-9 ]{4,16}" title="4 to 16 alphanumeric and space characters" ng-model="roomName">
+                          </div>
+                          <div class="col-sm-4">
+                            <label class="sr-only" for="roomLimitInput"> Player Limit: </label>
+                            <input type="number" class="form-control" placeholder="Player Limit" name="roomLimitInput" min="2" max="4" value="2" id="roomLimitInput" ng-model="roomLimit">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="btn-group btn-group-justified">
+                            <a href="#" class="btn btn-primary" id="gameCreateSubmit" data-loading-text="Creating..." ng-click="doCreate(gameCreateForm)">Create!</a>
+                            <a href="#" class="btn btn-default" ng-click="cancelCreate()">Cancel</a>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Game List -->
+            <div class="tab-pane fade" id="game-list" ng-controller="RoomListCtrl">
+              <div class="row">&nbsp;</div>
+              <div class="row no-padding">
+                <div class="col-md-4 col-xs-3 col-sm-3"></div>
+                <div class="col-md-4 col-sm-6 col-xs-6">
+                  <button ng-click="goCreate()" type="submit" class="btn btn-block btn-primary">Create!</button>
+                </div>
+              </div>
+              <div class="row">&nbsp;</div>
+              <div class="row no-padding">
+                <div class="col-md-1 col-sm-1 col-xs-1"></div>
+                <div class="col-md-10 col-sm-10 col-xs-10">
+                  <div class="row">
+                    <div class="table-responsive">
+                      <table class="table table-condensed table-hover table-hover-pointer">
+                        <thead>
+                          <tr>
+                            <td>Name</td>
+                            <td>Count</td>
+                            <td>Max</td>
+                            <td>Host</td>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr ng-show="isEmpty()">
+                            <td colspan="4" class="text-center">
+                              No active games.
+                            </td>
+                          </tr>
+                          <tr ng-click="joinRoom($index)" ng-repeat="room in rooms">
+                            <td>{{ room.name }}</td>
+                            <td>
+                              <a href="#" rel="tooltip" title="{{ room.players.toString() }}" data-toggle="tooltip" data-placement="right">{{ room.count }}</a>
+                            </td>
+                            <td>{{ room.max }}</td>
+                            <td>{{ room.host }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Game Room -->
+            <div class="tab-pane fade" id="game-room" ng-controller="GameRoomCtrl">
+              <div class="row">
+                <div class="center-block text-center">
+                  <h3>{{ roomName }}</h3>
+                </div>
+              </div>
+              <div class="row">&nbsp;</div>
+              <div class="row no-padding">
+                <div class="col-md-3 col-sm-2 col-xs-1"></div>
+                <div class="col-md-6 col-sm-8 col-xs-10">
+                  <ul class="list-unstyled">
+                    <li ng-repeat="player in players">
+                      <player move-up="move($index, -1)" move-down="move($index, 1)" kick="kickPlayer($index)" ng-model="player" type="room" host-nick="hostName" user-name="userName" teams="{{ players.length == 4 && 'yes' || 'no' }}" index="{{ $index % 2 }}" settings-object="settings.gameplay"></player>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="row">&nbsp;</div>
+              <div class="row">
+                <div class="col-md-3 col-sm-1 col-xs-0"></div>
+                <div class="col-md-6 col-sm-10 col-xs-12">
+                  <form role="form" class="form-horizontal" id="game-room-form" name="gameRoomForm">
+                    <div class="btn-group btn-group-justified">
+                      <a href="#" class="btn btn-default" ng-click="leave()">
+                        <span ng-show="hostName == userName">Disband</span>
+                        <span ng-hide="hostName == userName">Leave</span>
+                      </a>
+                      <a href="#" class="btn btn-default" ng-show="hostName == userName" ng-click="addBot()">Add Bot</a>
+                      <a href="#" class="btn btn-primary" id="gameRoomStart" data-loading-text="Starting..." ng-show="hostName == userName" ng-click="start()">Start</a>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <!-- Game Zone -->
+            <div class="tab-pane fade" id="game-zone" ng-controller="GameZoneCtrl">
+              <!-- Room Name -->
+              <div class="row">
+                <div class="center-block text-center">
+                  <h3>{{ roomName }}</h3>
+                </div>
+              </div>
+              <div class="row">
+                <div class="center-block text-center">
+                  <h3>&nbsp;
+                    <span ng-show="timer.seconds_left != -1 && turn == player_idx">{{ timer.seconds_left + " seconds left."; }}</span>
+                  </h3> <!-- Timer and message -->
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-offset-0 col-md-12">
+                  <!-- Game Zone -->
+                  <ul class="list-unstyled list-inline">
+                    <div ng-class="{'col-md-3 col-sm-3 col-xs-0': players.length == 2}"></div>
+                    <li ng-repeat="player in players" class="col-xs-6" ng-class="{'col-md-4 col-sm-4': players.length == 3, 'col-md-3 col-sm-3': players.length == 4 || players.length == 2}">
+                      <player ng-model="player" type="zone" host-nick="hostName" user-name="main.data.username" teams="{{ players.length == 4 && 'yes' || 'no' }}" index="{{ $index % 2 }}" player-turn="{{ $index == turn && 'yes' || 'no' }}" player-starter="{{ $index == starter && 'yes' || 'no' }}" player-cutter="{{ $index == cut && 'yes' || 'no' }}" settings-object="settings.gameplay"></player>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="row">&nbsp;</div>
+              <div class="row card-row">
+                <div class="col-md-2 col-sm-1 col-xs-0"><!-- Offset --></div>
+                <div class="col-md-8 col-sm-10 col-xs-12">
+                  <card-list clickable="no" random="yes" hover="disperse" ng-model="stack"></card-list>
+                </div>
+              </div>
+              <div class="row player-row">
+                <div class="col-md-3 col-sm-2 col-xs-0"><!-- Offset --></div>
+                <div class="col-md-6 col-sm-8 col-xs-12">
+                  <!-- Player Cards -->
+                  <card-list clickable="yes" random="no" hover="highlight" ng-model="cards" action="dropCard"></card-list>
+                  <div class="center-block text-center">
+                    <div class="btn btn-default" ng-click="passTurn()" ng-class="{'hidden': isPassTurnHidden() }">
+                      {{ getPassTurnLabel() }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="game-stats" ng-controller="GameStatsCtrl">
+              <!-- Room Name -->
+              <div class="row">
+                <div class="center-block text-center">
+                  <h3>{{ roomName }}</h3>
+                </div>
+              </div>
+              <div class="row">&nbsp;</div>
+              <div class="row">
+                <div class="col-md-3 col-sm-2 col-xs-1"></div>
+                <div class="col-md-6 col-sm-8 col-xs-10">
+                  <ul class="list-unstyled">
+                    <li ng-repeat="player in players">
+                      <player ng-model="player" type="zone" host-nick="hostName" user-name="main.data.username" teams="{{ players.length == 4 && 'yes' || 'no' }}" index="{{ $index % 2 }}" player-turn="no" player-starter="no" player-cutter="no" settings-object="settings.gameplay"></player>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3 col-sm-2 col-xs-1"></div>
+                <div class="col-md-6 col-sm-8 col-xs-10">
+                  <form>
+                    <div class="btn-group btn-group-justified">
+                      <a href="#" id="gameStatsRestart" class="btn btn-default" data-loading-text="Restarting..." ng-show="hostName == userName" ng-click="restart()">Restart</a>
+                      <a href="#" class="btn btn-primary" ng-click="leave()">
+                        <span ng-show="hostName == userName">Disband <small>({{ timer.seconds_left }})</small></span>
+                        <span ng-hide="hostName == userName">Leave</span>
+                      </a>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div> <!-- - Game tabs -->
+        </div>
+        <div class="tab-pane fade" id="rules">
+          <!-- Rules -->
+          <div ng-controller="RulesCtrl">
+            <div class="row">&nbsp;</div>
+            <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-8">
+                <div class="panel">
+                  <div class="panel-heading">
+                    <h4>The Game</h4>
+                  </div>
+                  <div class="panel-body">
+                    <p>
+                      This game is played in two, three or four players. The players draw each turn up to four cards from the deck, until their hand has four cards or no cards are left in the deck. Then, the turn starter player ( the last player who took a hand or a randomly chosen player, if this is the first hand played ) begins a hand.
+                    </p>
+                  </div>
+                </div>
+                <div class="panel">
+                  <div class="panel-heading">
+                    <h4>The Deck</h4>
+                  </div>
+                  <div class="panel-body">
+                    <p>
+                      The deck is made of 32 cards ( from 7 to K ), if the game has two or four players.
+                    </p>
+                    <p>
+                      If the game has three players, two cards must be removed from the deck to ensure an equal distribution of the cards for the players. The two cards removed are two 8 cards.
+                    </p>
+                  </div>
+                </div>
+                <div class="panel">
+                  <div class="panel-heading">
+                    <h4>The Players</h4>
+                  </div>
+                  <div class="panel-body">
+                    <p>
+                      If there are four players in a game, players one and three are on the red team, and players two and four are in the blue team.
+                    </p>
+                    <p>
+                      Otherwise, it's every man for himself.
+                    </p>
+                  </div>
+                </div>
+                <div class="panel">
+                  <div class="panel-heading">
+                    <h4>The Turn</h4>
+                  </div>
+                  <div class="panel-body">
+                    <p>
+                      The players are called on successively to drop a card on the table, and the turn starter gets the option to either give the cards to the last cutter, or to continue the turn, if the last cutter isn't himself, by continuing to cut.
+                    </p>
+                    <p>
+                      The cutting cards are 7 and the first card on the table this turn. 
+     <b>E.g.</b>: If the other player started with K and you have K, 7, J, A in your hand, you can cut him with either K or 7.
+     <br><br>
+     <b>IMPORTANT</b>: If there are only three players in a game, the deck must be reduced to 30 cards for an equal distribution, so two eights are removed and <b>the remaining two 8 cards are also cutting cards</b>.
+                    </p>
+                    <p>
+                      The number of points in a turn is equal to the number of 10s or Aces in that turn.
+                    </p>
+                    <p>
+                      The last cutter in a turn gets all the points after the turn is over, and becomes the next turn starter.
+                    </p>
+                  </div>
+                </div>
+                <div class="panel">
+                  <div class="panel-heading">
+                    <h4>The Goal</h4>
+                  </div>
+                  <div class="panel-body">
+                    <p>
+                      You or your team must obtain the most number of points.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="faq">
+          <!-- Faq -->
+          <div ng-controller="FAQCtrl">
+            <div class="row">&nbsp;</div>
+            <div class="row">
+              <div class="col-md-2 col-sm-1 col-xs-0"></div>
+              <div class="col-md-8 col-sm-10 col-xs-12">
+                <!-- FAQ list -->
+                <div class="col-xs-12">
+                  <ul class="list-unstyled faq-list">
+                    <li ng-repeat="q in questions">
+                      <a href="#q-{{ $index }}" data-target="#q-{{ $index }}"> {{ q.question }}</a>
+                    </li>
+                  </ul>
+                  <div class="row">&nbsp;</div>
+                  <div ng-repeat="q in questions">
+                    <div id="q-{{$index}}"></div>
+                    <div class="panel faq-entry">
+                      <div class="panel-heading faq-question">
+                        <h4>{{ q.question }}</h4>
+                      </div>
+                      <div class="panel-body faq-answer">
+                        {{ q.answer }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="settings">
+          <!-- Settings -->
+          <div ng-controller="SettingsCtrl">
+            <div class="row">&nbsp;</div>
+            <div class="row">
+              <div class="col-md-2 col-sm-1 col-xs-0"></div>
+              <div class="col-md-8 col-sm-10 col-xs-12">
+                <div class="alert alert-danger" ng-hide="localStorageEnabled">
+                  <strong>HTML5 Local Storage </strong> isn't supported by your browser. You can't change the default settings.
+                </div>
+                <div class="panel-group" id="settings-accordion" ng-show="localStorageEnabled">
+                  <div class="panel panel-primary">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="settings-accordion" href="#settings-general">
+                          General Settings
+                        </a>
+                      </h4>
+                    </div>
+                  </div>
+                  <div class="panel-collapse collapse" id="settings-general">
+                    <div class="panel-body">
+                      <!-- General Settings -->
+                      <div class="form-group">
+                        <label for="themeSelect">Theme</label>
+                        <select id="themeSelect" class="form-control" ng-model="theme" ng-options="theme.label for theme in themes">
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel panel-primary">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="settings-accordion" href="#settings-audio">
+                          Audio Settings
+                        </a>
+                      </h4>
+                    </div>
+                  </div>
+                  <div class="panel-collapse collapse" id="settings-audio">
+                    <div class="panel-body">
+                      <!-- Audio Settings -->
+                      <div class="alert alert-danger" ng-hide="audioEnabled">
+                        <strong> HTML5 Audio </strong> isn't supported by your browser.
+                        Please upgrade your browser in order to hear the sound effects.
+                      </div>
+                      <form role="form" ng-show="audioEnabled">
+                        <div class="checkbox">
+                          <label><input type="checkbox" ng-model="settings.audio.isEnabled"> Enable sounds</label>
+                        </div>
+                        <div class="col-md-offset-1">
+                          <div ng-switch on="settings.audio.isEnabled">
+                            <div ng-switch-when="true">
+                              <fieldset>
+                                <div class="form-group">
+                                  <div class="checkbox">
+                                    <label><input type="checkbox" ng-model="settings.audio.isChatEnabled"> Enable chat sounds</label>
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <div class="checkbox">
+                                    <label><input type="checkbox" ng-model="settings.audio.isTurnEnabled"> Enable alert sounds when it's my turn</label>
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <div class="checkbox">
+                                    <label><input type="checkbox" ng-model="settings.audio.isCountdownEnabled"> Enable alert sounds when I have less than 10 seconds left on my turn</label>
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <div class="checkbox">
+                                    <label><input type="checkbox" ng-model="settings.audio.isGameFXEnabled"> Enable game effect sounds</label>
+                                  </div>
+                                </div>
+                              </fieldset>
+                            </div>
+                            <div ng-switch-default>
+                              <fieldset disabled>
+                                <div class="form-group">
+                                  <div class="checkbox">
+                                    <label><input type="checkbox" ng-model="settings.audio.isChatEnabled"> Enable chat sounds</label>
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <div class="checkbox">
+                                    <label><input type="checkbox" ng-model="settings.audio.isTurnEnabled"> Enable alert sounds when it's my turn</label>
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <div class="checkbox">
+                                    <label><input type="checkbox" ng-model="settings.audio.isCountdownEnabled"> Enable alert sounds when I have less than 10 seconds left on my turn</label>
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <div class="checkbox">
+                                    <label><input type="checkbox" ng-model="settings.audio.isGameFXEnabled"> Enable game effect sounds</label>
+                                  </div>
+                                </div>
+                              </fieldset>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                  <div class="panel panel-primary">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="settings-accordion" href="#settings-gameplay">
+                          Gameplay Settings
+                        </a>
+                      </h4>
+                    </div>
+                  </div>
+                  <div class="panel-collapse collapse" id="settings-gameplay">
+                    <div class="panel-body">
+                      <!-- Gameplay Settings -->
+                      <form role="form">
+                        <div class="form-group">
+                          <div class="checkbox">
+                            <label><input type="checkbox" ng-model="settings.gameplay.showLastCutter"> Identify the last cutter by <span class="glyphicon glyphicon-flash"></span></label>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="checkbox">
+                            <label><input type="checkbox" ng-model="settings.gameplay.showTurnStarter"> Identify the turn starter by <span class="glyphicon glyphicon-tower"></span></label>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="checkbox">
+                            <label><input type="checkbox" ng-model="settings.gameplay.highlightTurn"> Highlight player whose turn it is</label>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="checkbox">
+                            <label><input type="checkbox" ng-model="settings.gameplay.highlightPlayer"> Highlight my name in-game</label>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                  <div class="panel panel-primary">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="settings-accordion" href="#settings-chat">
+                          Chat Settings
+                        </a>
+                      </h4>
+                    </div>
+                  </div>
+                  <div class="panel-collapse collapse" id="settings-chat">
+                    <div class="panel-body">
+                      <!-- Chat Settings -->
+                      <form role="form">
+                        <div class="form-group">
+                          <div class="checkbox">
+                            <label><input type="checkbox" ng-model="settings.chat.showTimestamp"> Show timestamp</label>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="checkbox">
+                            <label><input type="checkbox" ng-model="settings.chat.showServerMessages"> Show server messages</label>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="col-xs-2">
+                            <label for="clearChatSelect">Clear chat </label>
+                          </div>
+                          <div class="col-xs-10">
+                            <select id="clearChatSelect" class="form-control" ng-model="clearChatOption" ng-options="opt.label for opt in clearChatOptions">
+                            </select>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="about">
+          <!-- About -->
+          <div ng-controller="AboutCtrl">
+            <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-8">
+                <div class="panel">
+                  <div class="panel-heading">
+                    <div class="text-center">
+                      About me
+                    </div>
+                  </div>
+                  <div class="panel-body">
+                    <p class="about-description">
+                      I am a hobbyist programmer who has recently discovered the joys of server-side JavaScript. I also have taken part in many algorithmic competitions, including the National Olympiad of Informatics 2013, where I placed 20th in my year's ladder.
+                    </p>
+                    <ul class="about-list">
+                      <li>
+                        <span class="about-property">Name</span>
+                        <span class="about-content">
+                          Banu Cristian
+                        </span>
+                      </li>
+
+                      <li>
+                        <span class="about-property">Age</span>
+                        <span class="about-content">
+                          {{ age }}&nbsp;(&nbsp;born on 2nd of March 1996&nbsp;)
+                        </span>
+                      </li>
+
+                      <li>
+                        <span class="about-property">Location</span>
+                        <span class="about-content">
+                          Targoviste, Dambovita, Romania
+                        </span>
+                      </li>
+
+                      <li>
+                        <span class="about-property">Currently studying at</span>
+                        <span class="about-content">
+                          <a href="http://www.ienachita.ro/">Colegiul National "Ienachita Vacarescu"</a>
+                        </span>
+                      </li>
+
+                      <li>
+                        <span class="about-property">Email</span>
+                        <span class="about-content">
+                          <a href="mailto:cristb@gmail.com">cristb@gmail.com</a>
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-8">
+                <div class="panel">
+                  <div class="panel-heading">
+                    <div class="text-center">
+                      About Septica
+                    </div>
+                  </div>
+                  <div class="panel-body">
+                    <p class="about-description">
+                      This started out as a hobby project I did while learning NodeJS. Eventually, I added frameworks such as AngularJS and Bootstrap 3.
+                      Here is a list of all the technologies I used to create this HTML5 Web Application:
+                    </p>
+                    <ul class="about-list">
+                      <li>
+                        <span class="about-property">UI</span>
+                        <span class="about-content">
+                          <ul class="tech-icon-list">
+                            <li>
+                              <a href="http://getbootstrap.com/" rel="tooltip" data-toggle="tooltip" data-placement="left" title="Bootstrap 3" ><span class="tech-icon tech-icon-bootstrap"></span></a>
+                            </li>
+                            <li>
+                              <a href="http://angularjs.org/" rel="tooltip" data-toggle="tooltip" data-placement="left" title="AngularJS" ><span  class="tech-icon tech-icon-angularjs"></span></a>
+                            </li>
+                          </ul>
+                        </span>
+                      </li>
+                      <li>
+                        <span class="about-property">Server-side</span>
+                        <span class="about-content">
+                          <ul class="tech-icon-list">
+                            <li>
+                              <a href="http://nodejs.org/" rel="tooltip" data-toggle="tooltip" data-placement="left" title="NodeJS" ><span  class="tech-icon tech-icon-nodejs"></span></a>
+                            </li>
+                            <li>
+                              <a href="http://socket.io/" rel="tooltip" data-toggle="tooltip" data-placement="left" title="SocketIO"><span class="tech-icon tech-icon-socketio"></span></a>
+                            </li>
+                          </ul>
+                        </span>
+                      </li>
+                      <li>
+                        <span class="about-property">Development</span>
+                        <span class="about-content">
+                          <ul class="tech-icon-list">
+                            <li>
+                              <a href="http://bitbucket.org/" rel="tooltip" data-toggle="tooltip" data-placement="left" title="BitBucket" ><span  class="tech-icon tech-icon-bitbucket"></span></a>
+                            </li>
+                            <li>
+                              <a href="http://git-scm.com/" rel="tooltip" data-toggle="tooltip" data-placement="left" title="GIT" ><span  class="tech-icon tech-icon-git"></span></a>
+                            </li>
+                          </ul>
+                        </span>
+                      </li>
+                      <li>
+                        <span class="about-property">Deployment</span>
+                        <span class="about-content">
+                          <ul class="tech-icon-list">
+                            <li><a href="http://openshift.redhat.com/" rel="tooltip" data-toggle="tooltip" data-placement="left" title="OpenShift" ><span  class="tech-icon tech-icon-openshift"></span></a></li>
+                          <ul>
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> <!-- - App tabs -->
+    </div>
+
+    <div class="container">
+      <div class="row" ng-controller="ChatCtrl">
+        <div class="chat-box wrapper" ng-class="{'sr-only': !chatShown || !chatActive}">
+          <!-- Chat -->
+          <div class="chat-box box">
+            <div class="chat-box header">
+              <span class="title">
+                Chat
+              </span>
+              <span class="buttons">
+                <a href='' rel="tooltip" title="Close Chat" ng-click="hideChat()" data-placement="left">
+                  <span class="glyphicon glyphicon-remove"></span>
+                </a>
+              </span>
+            </div>
+            <perfect-scroll class="chat-box body" scrollable-container>
+              <ul class="list-unstyled">
+                <li class="message" ng-repeat="message in messages" ng-show="message.sender == 'SERVER' && settings.chat.showServerMessages || message.sender != 'SERVER'" scrollable-item>
+                  <span class="timestamp" ng-show="settings.chat.showTimestamp">{{ message.timestamp }}</span>
+                  <span class="sender">{{ message.sender }}</span>
+                  <span class="content">{{ message.content }}</span>
+                </li>
+              </ul>
+            </perfect-scroll>
+            <div class="chat-box footer">
+              <form role="form" class="form-horizontal" name="chatSendForm" ng-submit="sendMessage()" id="chatSendForm">
+                <div class="col-xs-7 col-sm-8 col-md-10">
+                  <div class="form-group">
+                    <label class="sr-only" for="messageInput">Message: </label>
+                    <input type="text" class="form-control" id="messageInput" name="messageInput" placeholder="Send a message" ng-model="inputMessage">
+                  </div>
+                </div>
+                <div class="col-xs-5 col-sm-4 col-md-2">
+                  <input type="submit" class="btn btn-primary btn-block" value="Send!">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- ChatButton -->
+        <div class="navbar-fixed-bottom">
+          <div class="chat-btn">
+            <div class="col-lg-5 col-md-4 col-xs-3"></div>
+            <div class="col-lg-2 col-md-4 col-xs-6">
+              <div class="btn btn-primary btn-block" ng-click="showChat()" ng-class="{'sr-only': chatShown || !chatActive}">
+                Chat <span class="badge" ng-show="newMessagesCount != 0"> {{ newMessagesCount }} </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Error -->
+    <div class="error-container fade" id="error-container">
+      <div ng-click="main.error.hide()" class="error">
+        {{ main.error.message }}
+      </div>
+    </div>
+
+    <!-- Audio sounds preloaded -->
+    <div class="hidden">
+      <audio preload="auto" id="notify-audio">
+        <source src="audio/notify.mp3" type="audio/mpeg">
+        <source src="audio/notify.wav" type="audio/wav">
+      </audio>
+      
+      <audio preload="auto" id="card-audio">
+        <source src="audio/card.mp3" type="audio/mpeg">
+        <source src="audio/card.wav" type="audio/wav">
+      </audio>
+      
+      <audio preload="auto" id="tick-audio">
+        <source src="audio/tick.mp3" type="audio/mpeg">
+        <source src="audio/tick.wav" type="audio/wav">
+      </audio>
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
+    <script src="/socket.io/socket.io.js" defer></script>
+    <script src="js/vendor/angular.min.js" defer></script>
+    <script src="js/vendor/bootstrap.min.js" defer></script>
+    <script src="js/scrollbar.js" defer></script>
+    <script src="js/const.js" defer></script>
+    <script src="js/main.js" defer></script>
+    <script src="js/app.js" defer></script>
+  </body>
+</html>

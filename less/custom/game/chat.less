@@ -1,0 +1,118 @@
+@chatbox-bg: fade(darken(@body-bg, 30%), 60%);
+
+.ps-scrollbar-y-rail:hover,
+.ps-scrollbar-y-rail.hover { 
+  background-color: @chatbox-bg !important;
+  background-color: transparent !important;
+}
+
+.chat-box.wrapper {
+  &:extend(.navbar-fixed-bottom all);
+
+  margin-bottom: 10px;
+
+  > .chat-box.box {
+    .make-sm-column-offset(2);
+    .make-sm-column(8);
+  }
+
+  @media (max-width: @screen-xs-min) {
+    height: 80%;
+    min-height: 165px;
+    max-height: 300px;
+  }
+
+  @media (min-width: @screen-xs-min)  {
+    height: 40%;
+    min-height: 165px;
+    max-height: 220px;
+  }
+}
+
+.chat-box {
+  
+  & .header,
+  & .body,
+  & .footer {
+    width: 100%;
+    padding: 0px;
+  }
+
+  & .box {
+    &:extend(.panel);
+    background-color: @chatbox-bg;
+    .panel-variant(@panel-default-border; @panel-default-text; @panel-default-heading-bg; @panel-default-border);
+
+    height: 100%;
+  }
+
+  & .header {
+    &:extend(.panel-heading);
+    .text-center();
+    &:extend(h4);
+
+    & > .title {
+      .user-select(none);
+      cursor: default;
+      text-shadow: 0 1px 3px rgba(255, 255, 255, 0.25);
+    }
+
+    & > .buttons {
+      .pull-right();
+    }
+  }
+
+  & .footer {
+    position: absolute;
+    bottom: 0px;
+    height: 45px;
+    width: auto;
+    left: @grid-gutter-width / 2;
+    right: @grid-gutter-width / 2; 
+  }
+
+
+  & .body {
+    &:extend(.panel-body);
+    overflow-y: hidden;
+    overflow-x: hidden;
+
+    position: absolute;
+    top: 42px;
+    bottom: 45px;
+    width: auto;
+    left: @grid-gutter-width / 2;
+    right: @grid-gutter-width / 2; 
+
+    & .message {
+      & > .timestamp,
+      & > .sender {
+        color: @gray-light;
+      }
+
+      & > .timestamp {
+        font-family: @font-family-base;
+      }
+
+      & > .timestamp:before {
+        content: '[';
+      }
+
+      & > .timestamp:after {
+        content: '] ';
+      }
+
+      & > .sender {
+        font-family: @font-family-monospace;
+      }
+
+      & > .sender:after {
+        content: ':';
+      }
+
+      & > .content {
+        color: @gray-lighter;
+      }
+    }
+  }
+}

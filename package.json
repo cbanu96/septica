@@ -1,0 +1,21 @@
+{
+  "name": "septica-game",
+  "version": "0.2.0",
+  "description": "septica multiplayer html5 game using socket.io",
+  "main": "server.js",
+  "dependencies": {
+    "socket.io": "~0.9.16",
+    "socket.io-client": "~0.9.16",
+    "underscore": "~1.5.2",
+    "zlib": "~1.0.5",
+    "cookies": "~0.4.0",
+    "nodetime": "~0.8.15"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Cristian Banu",
+  "private": true
+}

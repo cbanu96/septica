@@ -1,0 +1,105 @@
+.panel a {
+	color: lighten(@panel-bg, 25%);
+	&:hover {
+		color: lighten(@panel-bg, 30%);
+	}
+}
+
+.about-description {
+	text-indent: 2em;
+	color: @gray-lighter;
+}
+
+.about-list {
+	&:extend(.list-unstyled all);
+
+	& > li {
+		.clearfix();
+		margin-top: .2em;
+		& > span {
+			&.about-property {
+				color: lighten(@gray-lighter, 25%);
+				&:hover {
+					color: lighten(@gray-lighter, 30%);
+					text-decoration: underline;
+					cursor: pointer;
+				}
+				
+				&:after {
+					content: ':';
+				}
+
+				.make-xs-column(3);
+				text-align: right;
+			}
+
+			&.about-content {
+				.make-xs-column(9);
+				padding-left: 3px;
+				color: lighten(mix(@gray-lighter, @panel-bg), 35%);
+			}
+		}
+	}
+}
+
+/* Tech Icons */
+@tech-icon-size: 24px;
+
+.tech-icon-list {
+	list-style: none;
+
+	& > li:nth-child(0) {
+		margin-left: @tech-icon-size;
+	}
+
+	& > li:nth-child(1) {
+		margin-left: @tech-icon-size * 2;
+	}
+}
+
+.tech-icon {
+	width: @tech-icon-size;
+	height: @tech-icon-size;
+
+	position: absolute;
+
+	.clearfix();
+
+	border-radius: @tech-icon-size;
+
+	&.tech-icon-bootstrap {
+		background: url('../img/icons/bootstrap-icon.png') no-repeat top left;
+		background-size: @tech-icon-size @tech-icon-size;
+	}
+
+	&.tech-icon-angularjs {
+		background: url('../img/icons/angularjs-icon.jpg') no-repeat top left;
+		background-size: @tech-icon-size @tech-icon-size;
+	}
+
+	&.tech-icon-nodejs {
+		background: url('../img/icons/nodejs-icon.png') no-repeat top left;
+		background-size: @tech-icon-size @tech-icon-size;
+	}
+
+	&.tech-icon-socketio {
+		background: url('../img/icons/socketio-icon.png') no-repeat top left;
+		background-size: @tech-icon-size @tech-icon-size;
+	}
+
+	&.tech-icon-bitbucket {
+		background: url('../img/icons/bitbucket-icon.png') no-repeat top left;
+		background-size: @tech-icon-size @tech-icon-size;
+	}
+
+	&.tech-icon-git {
+		background: url('../img/icons/git-icon.png') no-repeat top left;
+		background-size: @tech-icon-size @tech-icon-size;
+	}
+
+	&.tech-icon-openshift {
+		background: url('../img/icons/openshift-icon.png') no-repeat top left;
+		background-size: @tech-icon-size @tech-icon-size;
+	}
+
+}
